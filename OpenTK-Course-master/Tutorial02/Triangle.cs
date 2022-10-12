@@ -28,28 +28,33 @@ namespace Tutorial02
         public Vector2[] pontos;
         double[] arestas;
         Vector2 pivo;
+        int currentPivo;
 
         
         public Triangulo(Vector2 a, Vector2 b, Vector2 c, Vector2 newPivo)
         { //contrutor
             pontos = new Vector2[3];
             arestas = new double[3];
-            pivo = newPivo;
 
+            currentPivo = 0;
+            
             pontos[0] = a;
             pontos[1] = b;
             pontos[2] = c;
+            
+            pivo = a;
 
             arestas[0] = Distance(a, b);
             arestas[1] = Distance(b, c);
             arestas[2] = Distance(c, a);
 
             if (arestas[0] >= arestas[1] + arestas[2])
-                throw new Exception("\n\n NAO EH TRIANGULO >:( \n\n");
+                Console.WriteLine("NAO EH TRIANGULO >:(");
+                //throw new Exception("\n\n NAO EH TRIANGULO >:( \n\n");
             if (arestas[1] >= arestas[2] + arestas[0])
-                throw new Exception("\n\n NAO EH TRIANGULO >:( \n\n");
+                Console.WriteLine("NAO EH TRIANGULO >:(");
             if (arestas[2] >= arestas[1] + arestas[0])
-                throw new Exception("\n\n NAO EH TRIANGULO >:( \n\n");
+                Console.WriteLine("NAO EH TRIANGULO >:(");
 
             int ladosIguais = 0;
 
@@ -61,6 +66,8 @@ namespace Tutorial02
                 ladosIguais++;
 
             tipo = (TipoTriangulo)ladosIguais;
+
+            Console.WriteLine(tipo.ToString());
         }
 
         public void Tranlate(Vector2 toTranslate)
@@ -77,13 +84,11 @@ namespace Tutorial02
             pontos[1].y += toTranslate.y;
             pontos[2].y += toTranslate.y;
 
+            UpdatePivo();
         }
 
         public void Scale(Vector2 toScale)
         {
-            pivo.x *= toScale.x;
-            pivo.y *= toScale.y;
-
             pontos[0].x *= toScale.x;
             pontos[1].x *= toScale.x;
             pontos[2].x *= toScale.x;
@@ -91,6 +96,9 @@ namespace Tutorial02
             pontos[0].y *= toScale.y;
             pontos[1].y *= toScale.y;
             pontos[2].y *= toScale.y;
+
+            UpdatePivo();
+
         }
 
         public void LocalScale(Vector2 toScale)
@@ -103,6 +111,8 @@ namespace Tutorial02
             Scale(toScale);
 
             Tranlate(toTranslate2);
+
+            UpdatePivo();
         }
         public void Rotate(double angle)
         {
@@ -118,6 +128,21 @@ namespace Tutorial02
 
             }
 
+            UpdatePivo();
+        }
+
+        public void SetPivo()
+        {
+
+            if(++currentPivo == pontos.Length)
+                currentPivo = 0;
+            
+            UpdatePivo();
+        }
+
+        void UpdatePivo()
+        {
+            pivo = pontos[currentPivo];
         }
 
         public void LocalRotate(double angle)
@@ -162,14 +187,13 @@ namespace Tutorial02
             // don't care about the Z-coordinate since we are creating a rectangle that is perpendicular to our eye, so we
             // use 0.
 
-            GL.Color3(0.5f, 0.5f, 0.5f); GL.Vertex3(pivo.x + pontos[0].x, pivo.y + pontos[0].y, 0);      // red, top left
-            GL.Color3(0.5f, 0.5f, 0.5f); GL.Vertex3(pivo.x + pontos[1].x, pivo.y + pontos[1].y, 0);     // green, bottom left
-            GL.Color3(0.5f, 0.5f, 0.5f); GL.Vertex3(pivo.x + pontos[2].x, pivo.y + pontos[2].y, 0);      // blue, bottom right
+            GL.Color3(0.5f, 0.5f, 0.5f); GL.Vertex3(pontos[0].x, pontos[0].y, 0);      // red, top left
+            GL.Color3(0.5f, 0.5f, 0.5f); GL.Vertex3( pontos[1].x, pontos[1].y, 0);     // green, bottom left
+            GL.Color3(0.5f, 0.5f, 0.5f); GL.Vertex3(pontos[2].x, pontos[2].y, 0);      // blue, bottom right
                                                                                            //GL.Color3(1f, 0f, 1f); GL.Vertex3(0.5f, 0.5f, 0);       // purple, top right
 
             // We end the drawing operation by calling End().
             GL.End();
-
         }
         
         }
