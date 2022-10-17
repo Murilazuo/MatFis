@@ -30,18 +30,17 @@ namespace Tutorial02
         Vector2 pivo;
         int currentPivo;
 
-        
         public Triangulo(Vector2 a, Vector2 b, Vector2 c, Vector2 newPivo)
         { //contrutor
             pontos = new Vector2[3];
             arestas = new double[3];
 
             currentPivo = 0;
-            
+
             pontos[0] = a;
             pontos[1] = b;
             pontos[2] = c;
-            
+
             pivo = a;
 
             arestas[0] = Distance(a, b);
@@ -50,7 +49,7 @@ namespace Tutorial02
 
             if (arestas[0] >= arestas[1] + arestas[2])
                 Console.WriteLine("NAO EH TRIANGULO >:(");
-                //throw new Exception("\n\n NAO EH TRIANGULO >:( \n\n");
+            //throw new Exception("\n\n NAO EH TRIANGULO >:( \n\n");
             if (arestas[1] >= arestas[2] + arestas[0])
                 Console.WriteLine("NAO EH TRIANGULO >:(");
             if (arestas[2] >= arestas[1] + arestas[0])
@@ -134,9 +133,9 @@ namespace Tutorial02
         public void SetPivo()
         {
 
-            if(++currentPivo == pontos.Length)
+            if (++currentPivo == pontos.Length)
                 currentPivo = 0;
-            
+
             UpdatePivo();
         }
 
@@ -173,28 +172,13 @@ namespace Tutorial02
             return distance;
         }
 
-        public void DrawTriangle()
+        public float[] DrawTriangle()
         {
-            GL.Clear(ClearBufferMask.ColorBufferBit);
-
-            // We start drawing by telling OpenGL what kind of shapes we will be using with the Begin() method.
-            // Since we want to draw a rectangle with 4 points, we will use quads for simplicity.
-            GL.Begin(BeginMode.Triangles);
-
-            // Each of these 4 lines sets the color and position of a single point. By default, the OpenGL view extends from
-            // -1 to 1 both from left to right and bottom to top, regardless of the window size, so by using -0.5 and 0.5, we
-            // end up with a rectangle that is exactly 1/4th the size of the screen, and located directly in its center. We
-            // don't care about the Z-coordinate since we are creating a rectangle that is perpendicular to our eye, so we
-            // use 0.
-
-            GL.Color3(0.5f, 0.5f, 0.5f); GL.Vertex3(pontos[0].x, pontos[0].y, 0);      // red, top left
-            GL.Color3(0.5f, 0.5f, 0.5f); GL.Vertex3( pontos[1].x, pontos[1].y, 0);     // green, bottom left
-            GL.Color3(0.5f, 0.5f, 0.5f); GL.Vertex3(pontos[2].x, pontos[2].y, 0);      // blue, bottom right
-                                                                                           //GL.Color3(1f, 0f, 1f); GL.Vertex3(0.5f, 0.5f, 0);       // purple, top right
-
-            // We end the drawing operation by calling End().
-            GL.End();
-        }
-        
+            return new float[]{
+                (float) pontos[0].x, (float) pontos[0].y,
+                (float) pontos[1].x, (float) pontos[1].y,
+                (float) pontos[2].x, (float) pontos[2].y,
+            };
         }
     }
+}
