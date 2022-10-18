@@ -1,7 +1,6 @@
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
-using Tutorial02;
 
 
 Console.WriteLine("Usar Valores padrao? s = sim");
@@ -64,6 +63,6 @@ var nativeWindowSettings = new NativeWindowSettings()
     Flags = ContextFlags.ForwardCompatible,
 };
 
-using Tutorial tutorial = new Tutorial(triangulo, GameWindowSettings.Default, nativeWindowSettings);
+using TrianguloView tutorial = new TrianguloView(triangulo, GameWindowSettings.Default, nativeWindowSettings);
 tutorial.Run();
 
