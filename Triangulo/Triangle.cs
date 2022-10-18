@@ -8,12 +8,6 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Tutorial02
 {
-    public struct Vector2
-    {
-        public double x;
-        public double y;
-    }
-
     public enum TipoTriangulo
     {
         Escaleno,
@@ -97,7 +91,6 @@ namespace Tutorial02
             pontos[2].y *= toScale.y;
 
             UpdatePivo();
-
         }
 
         public void LocalScale(Vector2 toScale)
@@ -132,7 +125,6 @@ namespace Tutorial02
 
         public void SetPivo()
         {
-
             if (++currentPivo == pontos.Length)
                 currentPivo = 0;
 
@@ -143,6 +135,7 @@ namespace Tutorial02
         {
             pivo = pontos[currentPivo];
         }
+
 
         public void LocalRotate(double angle)
         {
