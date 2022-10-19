@@ -65,6 +65,18 @@ else
 
 triangulo.Scale(curScale);
 
+Console.WriteLine("Tab => Muda o Pivot");
+Console.WriteLine("E => Rotaciona para a esquerda no Pivot");
+Console.WriteLine("Q => Rotaciona para a direita no Pivot");
+Console.WriteLine("A => Move para esquerda");
+Console.WriteLine("D => Move para direita");
+Console.WriteLine("W => Move para cima");
+Console.WriteLine("S => Move para baixo");
+Console.WriteLine("Up Arrow => Aumenta a escala no eixo y");
+Console.WriteLine("Down Arrow => Diminui a escala no eixo y");
+Console.WriteLine("Right Arrow => Aumenta a escala no eixo x");
+Console.WriteLine("Left Arrow => Diminui a escala no eixo x");
+
 var nativeWindowSettings = new NativeWindowSettings()
 {
     Size = new Vector2i(800, 600),
