@@ -36,7 +36,6 @@ if (!defaultValue)
 var vector1 = new Vector2() { x = -0.5, y = -1 };
 var vector2 = new Vector2() { x = 0, y = -0.5 };
 var vector3 = new Vector2() { x = 0.5, y = -1 };
-var pivo = new Vector2() { x = 0, y = 1 };
 
 if (!defaultValue)
 {
@@ -50,10 +49,21 @@ if (!defaultValue)
 
 var curScale = new Vector2() { x = 1f, y = 1f };
 
-var triangulo = new Triangulo(vector1, vector2, vector3, pivo);
+var triangulo = new Triangulo(vector1, vector2, vector3);
+
+Console.WriteLine("É um triângulo válido? " + (triangulo.EhTriangulo() ? "Sim" : "Não"));
+
+if (!triangulo.EhTriangulo())
+{
+    Console.WriteLine("Não é possível efetuar as operações com um triângulo inválido");
+    return;
+}
+else
+{
+    Console.WriteLine("Tipo do Triângulo: " + triangulo.GetTipoTriangulo().ToString());
+}
 
 triangulo.Scale(curScale);
-
 
 var nativeWindowSettings = new NativeWindowSettings()
 {

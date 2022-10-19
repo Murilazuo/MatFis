@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using OpenTK.Input;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
@@ -28,13 +28,16 @@ public class TrianguloView : GameWindow
 
         GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-        base.OnLoad();
-
         _vertexBufferObject = GL.GenBuffer();
 
         GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject);
 
         _vertexArrayObject = GL.GenVertexArray();
+
+        // var vertices = _triangulo.DrawTriangle();
+
+        // GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
+
         GL.BindVertexArray(_vertexArrayObject);
         GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
 
@@ -43,17 +46,16 @@ public class TrianguloView : GameWindow
 
         _shader.Use();
     }
-
-
+    
     protected override void OnRenderFrame(FrameEventArgs e)
     {
         base.OnRenderFrame(e);
         GL.Clear(ClearBufferMask.ColorBufferBit);
-        _shader.Use();
 
+        _shader.Use();
         var vertices = _triangulo.DrawTriangle();
 
-        GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
+        GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StreamDraw);
 
         // Bind the VAO
         GL.BindVertexArray(_vertexArrayObject);
@@ -81,7 +83,7 @@ public class TrianguloView : GameWindow
         }
         else if (!tabPressed && Keyboard.IsKeyDown(Keys.Tab))
         {
-            _triangulo.SetPivo();
+            _triangulo.ChangePivot();
             tabPressed = true;
         }
 
