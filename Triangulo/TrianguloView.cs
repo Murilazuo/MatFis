@@ -34,10 +34,6 @@ public class TrianguloView : GameWindow
 
         _vertexArrayObject = GL.GenVertexArray();
 
-        // var vertices = _triangulo.DrawTriangle();
-
-        // GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
-
         GL.BindVertexArray(_vertexArrayObject);
         GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
 
